@@ -22,3 +22,6 @@ The following packages are required to be able to run this code:
 - [pyscenic(0.12.1)](https://pyscenic.readthedocs.io/en/latest/installation.html)
 - numpy, scipy, pandas, scikit-learn, tqdm
 - Recommended: An NVIDIA GPU with CUDA support for GPU acceleration
+
+## Usage 
+###Inferring gene regulatary networks from scRNA-seq data

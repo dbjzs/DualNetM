@@ -28,5 +28,5 @@ The following packages are required to be able to run this code:
 ```
 python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_priorNet /home/dbj/DualNetM-main/data/NicheNet_human.csv --input_prior_markerData /home/dbj/cancer/marker333.csv --out_dir /home/dbj/DualNetM-main/cancer
 ```
--`input_expData`
+-`input_expData`:`: a '.csv' file in which rows represent cells and columns represent genes, or a '.h5ad' formatted file with AnnData objects,which is recommended to use the Top3000 hypervariable genes.
 

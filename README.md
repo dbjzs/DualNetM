@@ -23,6 +23,16 @@ The following packages are required to be able to run this code:
 - numpy, scipy, pandas, scikit-learn, tqdm
 - Recommended: An NVIDIA GPU with CUDA support for GPU acceleration
 
+#### Setup a conda environment
+```
+conda create -y --name DualNetM python=3.10.13
+conda activate DualNetM
+```
+#### Install using conda
+```
+conda install --yes --file requirements.txt
+```
+
 ## Usage 
 ### Inferring gene regulatary networks and functional markers from scRNA-seq data
 #### Command line usage

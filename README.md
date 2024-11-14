@@ -24,4 +24,8 @@ The following packages are required to be able to run this code:
 - Recommended: An NVIDIA GPU with CUDA support for GPU acceleration
 
 ## Usage 
-###Inferring gene regulatary networks from scRNA-seq data
+### Inferring gene regulatary networks from scRNA-seq data
+```
+python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_priorNet /home/dbj/DualNetM-main/data/NicheNet_human.csv --input_prior_markerData /home/dbj/cancer/marker333.csv --out_dir /home/dbj/DualNetM-main/cancer
+```
+

@@ -1,9 +1,9 @@
 # DualNetM-new
-An Adaptive Attention-Driven Dual Network Framework for Inferring Functional Markers
+An Adaptive Attention-Driven Dual Network Framework for gene regulatary networks and functional markers
 
 DualNetM is a computational tool for Inferring Functional Markers from single-cell RNA-seq data.
-It takes a prior gene interaction network,expression profiles and prior markers from scRNA-seq data as inputs, and consists of three main components, including gene 
-regulatory network (GRN) construction, Functional Markers inference and Markers activity score.
+It takes a prior gene interaction network,expression profiles and prior markers from scRNA-seq data as inputs, and consists of two main components, including gene 
+regulatory network (GRN) construction, functional markers inference 
 
 ![workframe.svg](/workframe.svg)
 
@@ -24,8 +24,9 @@ The following packages are required to be able to run this code:
 - Recommended: An NVIDIA GPU with CUDA support for GPU acceleration
 
 ## Usage 
-### Inferring gene regulatary networks from scRNA-seq data
+### Inferring gene regulatary networks and functional markers from scRNA-seq data
 ```
 python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_priorNet /home/dbj/DualNetM-main/data/NicheNet_human.csv --input_prior_markerData /home/dbj/cancer/marker333.csv --out_dir /home/dbj/DualNetM-main/cancer
 ```
+-`input_expData`
 

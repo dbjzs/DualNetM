@@ -33,3 +33,6 @@ python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_
 • `input_priorNet`: a '.csv' file contains collected a priori gene regulatory relationships, the default is the [NicheNet](https://github.com/saeyslab/nichenetr/tree/master/data).  
 • `input_prior_markerData`: a '.csv' file contains a priori markers for different cell types corresponding to the expression data, columns represent priori markers of different cell types, and the column index is celltype.  
 • `out_dir`: the path of DualNetM output(Gene regulatory networks and functional markers for different cell types).
+
+#### Package usage
+**Quick start by an example ([Jupyter Notebook](run.ipynb)).** \

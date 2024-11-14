@@ -72,4 +72,5 @@ The example of input data (i.e., the melanoma dataset with 3,000 highly variable
 The input_priorNet of human and mouse can be found in `/data`.
 
 ## BEELINE Benchmark Performance Test
+**Performance evaluation example ([Jupyter Notebook](BEELINE.ipynb)).**
 All datasets use expression data and true regulatory relationships can be found in `/BEELINE`.

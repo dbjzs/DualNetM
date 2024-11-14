@@ -70,3 +70,6 @@ DualNetMResult.find_marker(output_file=output_file)
 
 The example of input data (i.e., the melanoma dataset with 3,000 highly variable genes) can be found in `/example_data`.  
 The input_priorNet of human and mouse can be found in `/data`.
+
+## BEELINE Benchmark Performance Test
+All datasets use expression data and true regulatory relationships can be found in `/BEELINE`.

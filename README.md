@@ -11,3 +11,14 @@ regulatory network (GRN) construction, Functional Markers inference and Markers 
 DualNetM was tested with Python (3.10.13). 
 We recommend running DualNetM on CUDA. 
 The following packages are required to be able to run this code:
+
+### Requirements
+- python(3.10.13)
+- [pytorch(2.2.0)](https://pytorch.org/get-started/locally/) 
+- [torch-geometric(>=2.1.0)](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html)
+- [scanpy(1.9.8)](https://scanpy.readthedocs.io/en/stable/installation.html)
+- networkx(3.2.1)
+- cvxpy(1.4.2)
+- [pyscenic(0.12.1)](https://pyscenic.readthedocs.io/en/latest/installation.html)
+- numpy, scipy, pandas, scikit-learn, tqdm
+- Recommended: An NVIDIA GPU with CUDA support for GPU acceleration

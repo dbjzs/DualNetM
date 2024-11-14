@@ -25,6 +25,7 @@ The following packages are required to be able to run this code:
 
 ## Usage 
 ### Inferring gene regulatary networks and functional markers from scRNA-seq data
+#### Command line usage
 ```
 python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_priorNet /home/dbj/DualNetM-main/data/NicheNet_human.csv --input_prior_markerData /home/dbj/cancer/marker333.csv --out_dir /home/dbj/DualNetM-main/cancer
 ```

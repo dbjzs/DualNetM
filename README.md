@@ -13,7 +13,7 @@ We recommend running DualNetM on CUDA.
 The following packages are required to be able to run this code:
 
 ### Requirements
-- python(3.10.13)
+- [python(3.10.13](https://www.python.org/)
 - [pytorch(2.2.0)](https://pytorch.org/get-started/locally/) 
 - [torch-geometric(>=2.1.0)](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html)
 - [scanpy(1.9.8)](https://scanpy.readthedocs.io/en/stable/installation.html)

@@ -67,3 +67,6 @@ DualNetM_GRN_model.get_network(output_file=output_file)
 DualNetMResult=DualNetM_GRN_model.get_DualNetM_results(Prior_marker=Prior_marker)
 DualNetMResult.find_marker(output_file=output_file)
 ```
+
+The example of input data (i.e., the melanoma dataset with 3,000 highly variable genes) can be found in `/example_data`.
+The input_priorNet of human and mouse can be found in `/data`.

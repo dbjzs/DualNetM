@@ -6,3 +6,8 @@ It takes a prior gene interaction network,expression profiles and prior markers 
 regulatory network (GRN) construction, Functional Markers inference and Markers activity score.
 
 ![workframe.svg](/workframe.svg)
+
+## Installation
+DualNetM was tested with Python (3.10.13). 
+We recommend running DualNetM on CUDA. 
+The following packages are required to be able to run this code:

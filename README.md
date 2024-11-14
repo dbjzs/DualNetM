@@ -1,5 +1,5 @@
 # DualNetM-new
-An Adaptive Attention-Driven Dual Network Framework for gene regulatary networks and functional markers
+An Adaptive Attention-Driven Dual Network Framework for Constructing gene regulatary networks and Inferring functional markers
 
 DualNetM is a computational tool for Inferring Functional Markers from single-cell RNA-seq data.
 It takes a prior gene interaction network,expression profiles and prior markers from scRNA-seq data as inputs, and consists of two main components, including gene 
@@ -35,4 +35,25 @@ python DualNetM.py --input_expData /home/dbj/cancer/top3000expressT.csv --input_
 • `out_dir`: the path of DualNetM output(Gene regulatory networks and functional markers for different cell types).
 
 #### Package usage
-**Quick start by an example ([Jupyter Notebook](run.ipynb)).** \
+**Quick start by an example ([Jupyter Notebook](run.ipynb)).**
+```python
+import DualNetM as dm
+
+# Data preparation
+adata=sc.read_csv('/home/dbj/cancer/top3000expressT.csv')
+Prior_marker=pd.read_csv('/home/dbj/cancer/marker333.csv')
+output_file='/home/dbj/DualNetM-main/cancer/'
+prior_network = dm.datasets.load_human_prior_network()
+data = dm.data_preparation(adata, prior_network)
+
+# Construct GRN
+DualNetM_GRN_model = dm.NetModel(epochs=340, cuda='0', seed=9)
+DualNetM_GRN_model.run(data)
+
+# Get gene regulatory networks
+DualNetM_GRN_model.get_network(output_file=output_file)
+
+#Inferring functional markers
+DualNetMResult=DualNetM_GRN_model.get_DualNetM_results(Prior_marker=Prior_marker)
+DualNetMResult.find_marker(output_file=output_file)
+```

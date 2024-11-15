@@ -4,10 +4,10 @@ from .import eval_utils
 from DualNetM.utils import data_preparation
 from DualNetM.GRN_model import NetModel
 
-__version__ = '0.2.0'
-__url__ = 'https://github.com/WPZgithub/CEFCON'
+__version__ = '0.1.0'
+__url__ = 'https://github.com/dbjzs/DualNetM'
 __author__ = 'Peizhuo Wang'
-__author_email__ = 'wangpeizhuo_37@163.com'
+__author_email__ = '17516970902@163.com'
 
 __all__ = [
     'datasets',

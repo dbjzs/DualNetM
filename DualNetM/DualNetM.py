@@ -42,14 +42,13 @@ def main():
                                 cuda=args.cuda,
                                 )
     DualNetM_GRN.run(data, showProgressBar=True)
-    G_predicted = DualNetM_GRN.get_network()    
+    G_predicted = DualNetM_GRN.get_network(output_file=args.out_dir)    
     DualNetM_results = DualNetMResult(adata=DualNetM_GRN._adata,
                                    GRN=G_predicted,
                                    Prior_marker=prior_marker)
 
     ## find_marker
     DualNetM_results.find_marker(args.out_dir)
-    DualNetM_results.plo
 
 
 

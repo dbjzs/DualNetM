@@ -430,7 +430,8 @@ class NetModel(object):
 
         ## Save the predicted network to file
         if isinstance(output_file, str):
-            nx.write_edgelist(G_nx, output_file, delimiter=',', data=['weights'])
+            output_path = os.path.join(output_file, "outputGRN.csv")
+            nx.write_edgelist(G_nx, output_path, delimiter=',', data=['weights'])
         return G_nx
 
 

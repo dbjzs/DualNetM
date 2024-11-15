@@ -15,7 +15,6 @@ class DualNetMResult:
                  adata: sc.AnnData,
                  GRN: nx.DiGraph,
                  Prior_marker: pd.DataFrame):
-        self.name = adata.uns['name']
         self.GRN = GRN
         self.Prior_marker = Prior_marker
         self.result=None

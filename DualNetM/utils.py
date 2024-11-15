@@ -7,7 +7,7 @@ import scanpy as sc
 from typing import Optional, Union
 from pathlib import Path
 import re
-
+from scipy.sparse import issparse
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -47,11 +47,9 @@ def data_preparation(input_expData:Union[str,sc.AnnData,pd.DataFrame],
     if bool(re.search('[a-z]',adata.var_names[0])):
         possible_species='mouse'
         adata.var_names=adata.var_names
-        print('The species is',possible_species)
     else:
         possible_species='human'
         adata.var_names = adata.var_names
-        print('The species is', possible_species)
 
 
     if isinstance(input_expData,str):
@@ -88,69 +86,53 @@ def data_preparation(input_expData:Union[str,sc.AnnData,pd.DataFrame],
                            'to':idx_GeneName_map.loc[netData['to'].tolist(),'idx'].tolist()})
 
 
+    adata = adata[:,priori_network_nodes]
 
-    adata=adata[:,priori_network_nodes]
-    if lineages is None:
-        cells_in_lineage_dict={'all':adata.obs_names}
+    adata_l = adata.copy()
+    adata_l.varm['centrality_prior_net'] = centrality
+    adata_l.varm['idx_GeneName_map'] = idx_GeneName_map
+    adata_l.layers['raw_count'] = adata.layers['raw_count']
+    
+
+
+
+    if isinstance(adata_l.X,sparse.csr_matrix):
+        gene_exp=pd.DataFrame(adata_l.X.A.T,index=priori_network_nodes)
     else:
-        cells_in_lineage_dict = {}
-        for l in lineages:
-            non_na_cells = adata.obs_names[adata.obs[l].notna()]
-            cells_in_lineage_dict[l] = non_na_cells
-
-    print(f"Consider the input data with {len(cells_in_lineage_dict)}lineages:")
+        gene_exp=pd.DataFrame(adata_l.X.T,index=priori_network_nodes)
 
 
-    adata_lineages=dict()
-    for l,c in cells_in_lineage_dict.items():
-        print(f"Lineage-{l}:")
-        adata_l=sc.AnnData(X=adata[c,:].to_df())
-        adata_l.varm['centrality_prior_net']=centrality
-        adata_l.varm['idx_GeneName_map']=idx_GeneName_map
-        adata_l.uns['name']=l
-        adata_l.layers['raw_count']=adata.layers['raw_count']
+    ori_edgeNum = len(edgelist)
+
+
+    SCC,p=spearmanr(gene_exp,axis=1)
+    edges_corr=np.absolute(SCC)
+    np.fill_diagonal(edges_corr,0.0)
+    x,y=np.where(edges_corr > 0)
 
 
 
-        if isinstance(adata_l.X,sparse.csr_matrix):
-            gene_exp=pd.DataFrame(adata_l.X.A.T,index=priori_network_nodes)
-        else:
-            gene_exp=pd.DataFrame(adata_l.X.T,index=priori_network_nodes)
+    addi_top_edges = pd.DataFrame({'from': x, 'to': y, 'weight': edges_corr[x, y]})
+
+    if ori_edgeNum < 80000:
+        addi_top_k=int(ori_edgeNum)
+    else:
+        addi_top_k=int(ori_edgeNum*0.05)      
 
 
-        ori_edgeNum = len(edgelist)
+    addi_top_edges = addi_top_edges.sort_values(by=['weight'], ascending=False)
+    addi_top_edges = addi_top_edges.iloc[0:addi_top_k, 0:2]
 
 
-        SCC,p=spearmanr(gene_exp,axis=1)
-        edges_corr=np.absolute(SCC)
-        np.fill_diagonal(edges_corr,0.0)
-        x,y=np.where(edges_corr > 0)
+    edgelist = pd.concat([edgelist, addi_top_edges.iloc[:, 0:2]], ignore_index=True)
+    edgelist = edgelist.drop_duplicates(subset=['from', 'to'], keep='first', inplace=False)
+    print('    {} extra edges (Spearman correlation > 0) are added into the prior network.\n'
+          '    Total number of edges: {}.'.format((len(edgelist) - ori_edgeNum), len(edgelist)))
 
+    adata_l.uns['edgelist'] = edgelist
+    print(f" n_genes x n_cells ={adata_l.n_vars} x {adata_l.n_obs}")
 
-
-        addi_top_edges = pd.DataFrame({'from': x, 'to': y, 'weight': edges_corr[x, y]})
-
-        if ori_edgeNum < 80000:
-            addi_top_k=int(ori_edgeNum)
-        else:
-            addi_top_k=int(ori_edgeNum*0.05)      
-
-
-        addi_top_edges = addi_top_edges.sort_values(by=['weight'], ascending=False)
-        addi_top_edges = addi_top_edges.iloc[0:addi_top_k, 0:2]
-
-
-        edgelist = pd.concat([edgelist, addi_top_edges.iloc[:, 0:2]], ignore_index=True)
-        edgelist = edgelist.drop_duplicates(subset=['from', 'to'], keep='first', inplace=False)
-        print('    {} extra edges (Spearman correlation > 0) are added into the prior network.\n'
-              '    Total number of edges: {}.'.format((len(edgelist) - ori_edgeNum), len(edgelist)))
-
-        adata_l.uns['edgelist'] = edgelist
-        adata_lineages[l]=adata_l
-        print(f" n_genes x n_cells ={adata_l.n_vars} x {adata_l.n_obs}")
-        adata_lineages=adata_lineages['all']
-
-    return adata_lineages
+    return adata_l
 
 
 

@@ -1,4 +1,4 @@
-# DualNetM-new
+# DualNetM
 An Adaptive Attention-Driven Dual Network Framework for Constructing gene regulatary networks and Inferring functional markers
 
 DualNetM is a computational tool for Inferring Functional Markers from single-cell RNA-seq data.

@@ -1,0 +1,9 @@
+numpy~=1.26.3
+pandas~=1.5.3
+pytorch~=2.2.0
+scipy~=1.12.0
+scanpy~=1.9.8
+networkx~=3.2.1
+cvxpy~=1.4.2
+pyscenic~=0.12.1
+tqdm~=4.66.1

@@ -5,7 +5,7 @@ DualNetM is a computational tool for Inferring Functional Markers from single-ce
 It takes a prior gene interaction network,expression profiles and prior markers from scRNA-seq data as inputs, and consists of two main components, including gene 
 regulatory network (GRN) construction, functional markers inference 
 
-![workframe.png](/workframe.png)
+![workframe.svg](/workframe.svg)
 
 ## Installation
 DualNetM was tested with Python (3.10.13). 

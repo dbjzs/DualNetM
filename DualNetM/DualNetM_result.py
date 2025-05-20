@@ -43,10 +43,12 @@ class DualNetMResult:
 
 
 
-    def find_marker(self, output_file: Optional[str] = None):
+    def find_marker(self, output_file: Optional[str] = None,coexpress_size=None):
 
         self.coexpression_networks=Co_express_network(gene_express=self.expression_data,
-                                                      prior_marker=self.Prior_marker)
+                                                      prior_marker=self.Prior_marker,
+                                                      target_size=coexpress_size,
+                                                      output_dir=output_file)
         
         self.result = Co_regulatory_network(coexpression_networks=self.coexpression_networks,
                                             GRN=self.GRN,

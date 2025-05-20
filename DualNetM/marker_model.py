@@ -63,7 +63,7 @@ def parallel_filtering2(predEdgesDF6, long_format):
 
 
 
-def Co_express_network(gene_express, prior_marker,target_size=350):
+def Co_express_network(gene_express, prior_marker,target_size=350,output_dir=None):
     """
     Compute coexpression networks for each cell type based on specified genes.
     :param gene_express: DataFrame  gene expression data
@@ -123,6 +123,11 @@ def Co_express_network(gene_express, prior_marker,target_size=350):
 
         # Store in dictionary
         coexpression_networks[cell_type] = (specified_genes, long_format)
+        if output_dir:
+            # Create a directory if it does not exist
+            os.makedirs(output_dir, exist_ok=True)
+            output_file = os.path.join(output_dir, f"{cell_type}_coexpression_network.csv")
+            long_format.to_csv(output_file, index=False)
     return coexpression_networks
 
 
@@ -176,6 +181,9 @@ def Co_regulatory_network(coexpression_networks, GRN,output_file: Optional[str] 
                         })
         similarity_df = pd.DataFrame(similarity_results)
         similarity_df = similarity_df.drop_duplicates()
+        if output_file is not None:
+            Coregulator_output_file=os.path.join(output_file, f"{cell_type}_out_net.csv")
+            similarity_df.to_csv(Coregulator_output_file)
         sorted_df = similarity_df.sort_values(by='relative_difference')
         top_50_percent_df = sorted_df.iloc[:int(len(sorted_df) * 0.5)]
 
@@ -218,6 +226,9 @@ def Co_regulatory_network(coexpression_networks, GRN,output_file: Optional[str] 
 
         similarity_df = pd.DataFrame(similarity_results)
         similarity_df = similarity_df.drop_duplicates()
+        if output_file is not None:
+            Coregulator_input_file=os.path.join(output_file, f"{cell_type}_in_net.csv")
+            similarity_df.to_csv(Coregulator_input_file)
         sorted_df = similarity_df.sort_values(by='relative_difference')
         top_50_percent_df = sorted_df.iloc[:int(len(sorted_df) * 0.5)]
         Candidate_marker_in_number = top_50_percent_df['Candidate_other'].value_counts().reset_index()
